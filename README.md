@@ -13,4 +13,9 @@
 - [ ] comma separated param parsing
 - [ ] cognito api login portal
 
+### portability
+- [ ] cicd git
+- [ ] containerization 
+- [ ] dev/prod/test subdomain registration
+
 
