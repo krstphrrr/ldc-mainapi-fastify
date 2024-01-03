@@ -1,7 +1,7 @@
 # fastify main api
 
 ## features TODO
-### functional feaures
+### functional features
 - [x] database multitenancy
 - [ ] json route validation/serialization
 - [ ] streaming endpoints 
