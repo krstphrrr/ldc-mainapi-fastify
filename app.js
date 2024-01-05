@@ -1,36 +1,52 @@
-'use strict'
-
 const path = require('node:path')
 const AutoLoad = require('@fastify/autoload')
 
-const multitenantPlugin = require('./utils/multitenant')
+const genericStreamingPlugin = require('./utils/genericStreamPlugin');
+const genericBatchPlugin = require('./utils/genericBatchPlugin');
+
+const awsJwtVerifyPlugin = require('./utils/awsJwtVerifyPlugin');
+
+const pgExtender = require('./utils/pgExtenderPlugin')
 // Pass --options via CLI arguments in command to enable these options.
 const options = {
   dotenv: true
 }
 
+// check for token on prehandler
+// attach permission on request 
+// overloaded pg parses permission and returns user 
+// overloaded pg is used on batch/stream 
+
 module.exports = async function (fastify, opts) {
-  fastify.register(multitenantPlugin, {
-    tenants: [
-      {
-        name: 'unrestricted',
-        user: process.env.UN_USER,
-        host: process.env.UN_HOST,
-        database: process.env.UN_DB,
-        password: process.env.UN_PW,
-        port: process.env.UN_PORT,
-      },
-      {
-        name: 'restricted',
-        user: process.env.RES_USER,
-        host: process.env.RES_HOST,
-        database: process.env.RES_DB,
-        password: process.env.RES_PW,
-        port: process.env.RES_PORT,
-      },
-      // Add more databases as needed
-    ],
+  fastify.register(require('@fastify/postgres'),{
+    name: 'unrestricted',
+    host: process.env.UN_HOST,
+    port: process.env.UN_PORT,
+    database: process.env.UN_DB,
+    user: process.env.UN_USER,
+    password: process.env.UN_PW,
+    max:20
+  })
+  fastify.register(require('@fastify/postgres'),{
+    name: 'restricted',
+    host: process.env.RES_HOST,
+    port: process.env.RES_PORT,
+    database: process.env.RES_DB,
+    user: process.env.RES_USER,
+    password: process.env.RES_PW,
+    max:20
+  })
+
+  fastify.register(pgExtender)
+
+  fastify.register(awsJwtVerifyPlugin, {
+    userPoolId: process.env.USERPOOLID,
+    tokenUse: process.env.TOKENUSE,
+    clientId: process.env.CLIENTID,
   });
+
+  fastify.register(genericStreamingPlugin);
+  fastify.register(genericBatchPlugin);
 
   // Do not touch the following lines
 

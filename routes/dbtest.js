@@ -1,20 +1,23 @@
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/getData/:tenant', async (request, reply) => {
-    const { tenant } = request.params;
-  
-    if (!fastify.tenant[tenant]) {
-      return reply.status(404).send({ error: 'Database not found' });
-    }
-  
-    const pool = fastify.tenant[tenant];
-  
+  // fastify.get('/stream', fastify.getStreamingEndpoint(query));
+
+  fastify.get('/getData/unrestricted', async (request, reply) => {
+    const query = 'SELECT * FROM public_test."dataGap" LIMIT $1;'
+    request.slowQuery = query
+
     try {
-      const result = await pool.query('SELECT * FROM public_test."dataGap" where "ProjectKey" LIKE \'%NDOW%\' LIMIT 10;');
-      reply.send(result.rows);
+      console.log("DENTRO DE REQUEST ANTES DE PG")
+      return fastify.streamingEndpoint(request, reply)
+      
     } catch (error) {
       reply.status(500).send({ error: 'Internal Server Error' });
     }
   });
 
 }
+// receive request, 
+// parse token, 
+// choose tenant.
+// create pool
+// stream pool 
