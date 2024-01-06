@@ -8,7 +8,7 @@
 - [x] streaming endpoints 
 - - 2024-01-04 two main api endpoints`/api/batch` and `/api/stream`
 - [x] cognito plugin
-- [ ] 2024-01-04 batch handler (regular pagination)
+- [x] 2024-01-04 batch handler (regular pagination)
 
 ### LDC specifics
 - [ ] current LDC endpoint migration

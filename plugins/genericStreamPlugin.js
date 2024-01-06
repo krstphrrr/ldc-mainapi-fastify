@@ -5,6 +5,8 @@ const JSONStream = require('JSONStream');
 
 
 async function genericStreamingPlugin(fastify, options) {
+  // plugin to create a streaming pg pool: requires the tenant property
+// inside the request object to discriminate between users. 
 
   fastify.decorate('streamingEndpoint', async (request, reply) => {
     try {

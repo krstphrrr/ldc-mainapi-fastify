@@ -2,7 +2,10 @@ const fp = require("fastify-plugin")
 const { CognitoJwtVerifier } = require('aws-jwt-verify');
 
 async function awsJwtVerifyPlugin(fastify, options) {
-  //  getting all credentials for aws jwt validation
+  // plugin that uses the prehandler hook to verify if the
+  // request includes a bearer token. if found, it will validate it and 
+  // attach the permission on the tenant property of the request object
+  // this plugin is invoked on each request before the route is engaged.
   const { userPoolId, tokenUse, clientId } = options;
 
   if (!userPoolId || !tokenUse || !clientId) {
@@ -21,18 +24,15 @@ async function awsJwtVerifyPlugin(fastify, options) {
     let verifiedToken = null
     if (!authorizationHeader) {
       console.log("Not authorized")
-      // return reply.status(401).send({ error: 'Unauthorized - Missing Authorization Header' });
     }
 
     try {
       let token
-      // Verify the JWT token using the aws-jwt-verify package
       if(token!=null){
         token = authorizationHeader.replace(/^Bearer\s/, '')
         verifiedToken = await cognitoJwtVerifier.verify(token)
       }
-      // const verifiedToken = token
-      console.log("ANTES DE DISCRIMINATE")
+      
       request.tenant = groupDiscrimination(verifiedToken)
 
       // Attach the verified token to the request for further use in the route handler
@@ -46,6 +46,7 @@ async function awsJwtVerifyPlugin(fastify, options) {
 }
 
 function groupDiscrimination(verifiedToken){
+  // function to parse the group permissions
   const res = verifiedToken
   if (res == undefined) {
     console.log('no hay permiso: limited client');

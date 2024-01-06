@@ -1,12 +1,8 @@
 const path = require('node:path')
 const AutoLoad = require('@fastify/autoload')
 
-const genericStreamingPlugin = require('./utils/genericStreamPlugin');
-const genericBatchPlugin = require('./utils/genericBatchPlugin');
-
 const awsJwtVerifyPlugin = require('./utils/awsJwtVerifyPlugin');
 
-const pgExtender = require('./utils/pgExtenderPlugin')
 // Pass --options via CLI arguments in command to enable these options.
 const options = {
   dotenv: true
@@ -37,7 +33,6 @@ module.exports = async function (fastify, opts) {
     max:20
   })
 
-  fastify.register(pgExtender)
 
   fastify.register(awsJwtVerifyPlugin, {
     userPoolId: process.env.USERPOOLID,
@@ -45,8 +40,7 @@ module.exports = async function (fastify, opts) {
     clientId: process.env.CLIENTID,
   });
 
-  fastify.register(genericStreamingPlugin);
-  fastify.register(genericBatchPlugin);
+ 
 
   // Do not touch the following lines
 
@@ -60,10 +54,10 @@ module.exports = async function (fastify, opts) {
 
   // This loads all plugins defined in routes
   // define your routes in one of these
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
-  })
+  // fastify.register(AutoLoad, {
+  //   dir: path.join(__dirname, 'routes'),
+  //   options: Object.assign({}, opts)
+  // })
 }
 
 module.exports.options = options
