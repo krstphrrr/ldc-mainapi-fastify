@@ -5,7 +5,7 @@ const awsJwtVerifyPlugin = require('./utils/awsJwtVerifyPlugin');
 
 // Pass --options via CLI arguments in command to enable these options.
 const options = {
-  dotenv: true
+  dotenv: true,
 }
 
 // check for token on prehandler

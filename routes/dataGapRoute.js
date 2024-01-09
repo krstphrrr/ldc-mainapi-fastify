@@ -7,9 +7,10 @@ module.exports = async function (fastify, opts) {
     schema: {query: dataGapSchema},
     handler: async (request, reply) => {
       // console.log(request.query)
-      const query2 = await dynamicQuery(request.query)
+      const query = await dynamicQuery(request.query)
+      // const test = fastify.queryParse(request.query, dataGapSchema)
       
-      const query = 'SELECT * FROM public_test."dataGap" LIMIT $1;'
+      // const query = 'SELECT * FROM public_test."dataGap" LIMIT $1;'
       request.slowQuery = query
 
       try {
@@ -92,7 +93,7 @@ function dynamicQuery(queryPack){
   if("cursor" in queryParams || "offset" in queryParams){
     sqlQuery += ` OFFSET $2`
   }
-  // console.log(sqlQuery)
+  console.log(sqlQuery)
   return sqlQuery
 }
 // receive request, 

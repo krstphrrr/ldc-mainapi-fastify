@@ -21,19 +21,19 @@ async function awsJwtVerifyPlugin(fastify, options) {
   // prehandler:
   fastify.addHook('preHandler', async (request, reply) => {
     const authorizationHeader = request.headers.authorization;
-    let verifiedToken = null
+    let verifiedToken
     if (!authorizationHeader) {
       console.log("Not authorized")
     }
 
     try {
-      let token
-      if(token!=null){
+      let token = authorizationHeader
+      if(token!=null || token!=undefined){
         token = authorizationHeader.replace(/^Bearer\s/, '')
         verifiedToken = await cognitoJwtVerifier.verify(token)
       }
       
-      request.tenant = groupDiscrimination(verifiedToken)
+      request.tenant = await groupDiscrimination(verifiedToken)
 
       // Attach the verified token to the request for further use in the route handler
       request.jwt = verifiedToken;
@@ -45,7 +45,7 @@ async function awsJwtVerifyPlugin(fastify, options) {
   });
 }
 
-function groupDiscrimination(verifiedToken){
+async function groupDiscrimination(verifiedToken){
   // function to parse the group permissions
   const res = verifiedToken
   if (res == undefined) {

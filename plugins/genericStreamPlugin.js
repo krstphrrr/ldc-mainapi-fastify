@@ -27,9 +27,20 @@ async function genericStreamingPlugin(fastify, options) {
 async function getPostgresStream( slowQuery, request, pool) {
   
   const client = await pool.connect()
-  const query = new QueryStream(slowQuery, [request.query.limit],{
-    highWaterMark: 500
-  })
+  // console.log(request.query)
+  console.log("PART4",slowQuery)
+  let query
+  if(request.query.limit){
+    query = new QueryStream(slowQuery, [request.query.limit],{
+      highWaterMark: 500
+    })
+  } else {
+    query = new QueryStream(slowQuery,null,{
+      highWaterMark: 500
+    })
+    
+  }
+  // console.log(query)
 
   const stream = client.query(query)
   stream.on('end', () => { client.release() })
