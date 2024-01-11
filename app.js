@@ -5,15 +5,30 @@ const awsJwtVerifyPlugin = require('./utils/awsJwtVerifyPlugin');
 
 // Pass --options via CLI arguments in command to enable these options.
 const options = {
-  dotenv: true,
+  // dotenv: true,
+  // ajv: {
+  //   all
+    // customOptions: {
+
+      // coerceTypes: false,
+    // }
+  // }
 }
 
 // check for token on prehandler
 // attach permission on request 
 // overloaded pg parses permission and returns user 
 // overloaded pg is used on batch/stream 
-
+// const dataGapSchema = require("./schemas/dataGapSchema")
+// module.exports = async function (fastify, opts) {
+  // fastify.addSchema(dataGapSchema)
 module.exports = async function (fastify, opts) {
+
+  // fastify.setValidatorCompiler(({ schema, method, url, httpPart }) => {
+  //   return ajv.compile(schema)
+  // })
+  // fastify.addSchema(dataGapSchema)
+  
   fastify.register(require('@fastify/postgres'),{
     name: 'unrestricted',
     host: process.env.UN_HOST,
