@@ -23,7 +23,19 @@ async function getPostgresBatch( slowQuery, request, pool) {
   const offset = request.query.offset
   const batchSize = request.query.limit
 
-  const result = await pool.query(slowQuery, [batchSize])
+  if(batchSize && !offset){
+    const result = await pool.query(slowQuery, [batchSize])
+    return result.rows 
+  } else if(batchSize && offset){
+    const result = await pool.query(slowQuery, [batchSize, offset])
+    return result.rows 
+  } else if(!batchSize && offset){
+    const result = await pool.query(slowQuery, null)
+    return result.rows
+  } else {
+    const result = await pool.query(slowQuery, null)
+    return result.rows
+  }
   return result.rows
 }
 
