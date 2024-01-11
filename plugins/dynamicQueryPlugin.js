@@ -6,10 +6,7 @@ async function dynamicQueryPlugin(fastify, options) {
     // list of columns
     const columns = Object.keys(schema.properties)
 
-    
     const queryParams = JSON.parse(JSON.stringify(queryPack));
-    console.log(queryParams)
-
 
     // Initialize the base query
     let sqlQuery = 'SELECT ';

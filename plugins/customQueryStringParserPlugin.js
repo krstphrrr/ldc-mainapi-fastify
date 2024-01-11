@@ -21,12 +21,6 @@ async function customQueryParserPlugin(fastify, options) {
 
     done();
 
-    // request.query successfully parses possible arrays, but the contents of the array 
-    // remain unvalidated. 
-    // https://fastify.dev/docs/latest/Reference/Validation-and-Serialization/
-    // suggest using another validation engine such as joi (or customize ajv)
-    // validator compiler?
-
   })
 }
 

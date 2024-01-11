@@ -27,7 +27,7 @@ async function genericStreamingPlugin(fastify, options) {
 async function getPostgresStream( slowQuery, request, pool) {
   
   const client = await pool.connect()
-  // console.log(request.query)
+
   console.log("PART4",slowQuery)
   let query
   if(request.query.limit){
@@ -40,7 +40,7 @@ async function getPostgresStream( slowQuery, request, pool) {
     })
     
   }
-  // console.log(query)
+
 
   const stream = client.query(query)
   stream.on('end', () => { client.release() })
