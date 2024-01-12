@@ -4,6 +4,7 @@ const dataHeader = require('../routes/dataHeaderRoute')
 const dataHeight = require('../routes/dataHeightRoute')
 const dataHorizontalFlux = require('../routes/dataHorizontalFluxRoute')
 const dataLPI = require('../routes/dataLPIRoute')
+const dataSoilStability = require('../routes/dataSoilStabilityRoute')
 
 async function batchPrefixPlugin(fastify, options) {
   fastify.register(dataGap,{
@@ -23,6 +24,10 @@ async function batchPrefixPlugin(fastify, options) {
   })
 
   fastify.register(dataLPI,{
+    prefix: '/api/batch'
+  })
+
+  fastify.register(dataSoilStability,{
     prefix: '/api/batch'
   })
 
