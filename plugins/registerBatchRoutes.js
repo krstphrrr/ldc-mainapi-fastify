@@ -7,6 +7,7 @@ const dataLPI = require('../routes/dataLPIRoute')
 const dataSoilStability = require('../routes/dataSoilStabilityRoute')
 const dataSpeciesInventory = require('../routes/dataSpeciesInventoryRoute')
 const geoIndicators = require('../routes/geoIndicatorsRoute') 
+const geoSpecies = require('../routes/geoSpeciesRoute')
 
 async function batchPrefixPlugin(fastify, options) {
   fastify.register(dataGap,{
@@ -38,6 +39,10 @@ async function batchPrefixPlugin(fastify, options) {
   })
 
   fastify.register(geoIndicators,{
+    prefix: '/api/batch'
+  })
+
+  fastify.register(geoSpecies,{
     prefix: '/api/batch'
   })
   // add more batch routes here
