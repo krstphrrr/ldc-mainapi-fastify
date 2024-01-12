@@ -4,7 +4,7 @@ module.exports = async function (fastify, opts) {
     schema: {query: dataHeaderSchema},
     handler: async (request, reply) => {
       
-      const query = fastify.dynamicQueryGen(request.query, dataHeaderSchema,"dataHeader")
+      const query = fastify.dynamicQueryGen(request.query, dataHeaderSchema)
       request.slowQuery = query
 
       try {

@@ -1,10 +1,10 @@
-const dataHorizontalFluxSchema = require('../schemas/dataHorizontalFlux')
+const dataLPISchema = require('../schemas/dataLPISchema')
 module.exports = async function (fastify, opts) {
-  fastify.get('/dataHorizontalFlux', {
-    schema: {query: dataHorizontalFluxSchema},
+  fastify.get('/dataLPI', {
+    schema: {query: dataLPISchema},
     handler: async (request, reply) => {
       
-      const query = fastify.dynamicQueryGen(request.query, dataHorizontalFluxSchema,"dataHorizontalFlux")
+      const query = fastify.dynamicQueryGen(request.query, dataLPISchema)
       request.slowQuery = query
 
       try {

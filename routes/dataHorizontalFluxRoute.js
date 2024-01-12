@@ -1,12 +1,10 @@
-
-
-const dataGapSchema = require("../schemas/dataGapSchema")
+const dataHorizontalFluxSchema = require('../schemas/dataHorizontalFluxSchema')
 module.exports = async function (fastify, opts) {
-  fastify.get('/dataGap', {
-    schema: {query: dataGapSchema},
+  fastify.get('/dataHorizontalFlux', {
+    schema: {query: dataHorizontalFluxSchema},
     handler: async (request, reply) => {
       
-      const query = fastify.dynamicQueryGen(request.query, dataGapSchema)
+      const query = fastify.dynamicQueryGen(request.query, dataHorizontalFluxSchema)
       request.slowQuery = query
 
       try {
@@ -20,9 +18,3 @@ module.exports = async function (fastify, opts) {
   }
  );
 }
-
-// receive request, 
-// parse token, 
-// choose tenant.
-// create pool
-// stream pool 

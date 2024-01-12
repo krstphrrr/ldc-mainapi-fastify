@@ -1,4 +1,4 @@
-const dataHorizontalFlux = {
+const dataHorizontalFluxSchema = {
     $id: 'dataHorizontalFlux',
     type: 'object',
     properties: {
@@ -46,4 +46,4 @@ const dataHorizontalFlux = {
     }
   }
 
-module.exports = dataHorizontalFlux
+module.exports = dataHorizontalFluxSchema

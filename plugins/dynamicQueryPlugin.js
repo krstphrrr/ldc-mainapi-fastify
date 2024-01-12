@@ -2,7 +2,7 @@ const fp = require('fastify-plugin')
 
 
 async function dynamicQueryPlugin(fastify, options) {
-  fastify.decorate('dynamicQueryGen', (queryPack, schema, tablename) => {
+  fastify.decorate('dynamicQueryGen', (queryPack, schema) => {
     // list of columns
     const columns = Object.keys(schema.properties)
 
@@ -15,7 +15,7 @@ async function dynamicQueryPlugin(fastify, options) {
     sqlQuery += columns.map(column => `"${column}"`).join(', ');
 
     // Specify the table
-    sqlQuery += ` FROM public_test."${tablename}" WHERE 1 = 1`;
+    sqlQuery += ` FROM public_test."${schema.$id}" WHERE 1 = 1`;
 
     // Dynamically add conditions based on the presence of query parameters
     Object.keys(queryParams).forEach(param => {
