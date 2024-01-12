@@ -26,7 +26,7 @@
 
 1. Request to endpoint received
 
-2. `./plugins/customQueryStringParserPlugin` intercepts the request with the qs (querystring) package to check for arrays in the query strings and separate them:  key = ["value1, value2"] => key ["value1", "value2"].
+2. `./plugins/customQueryStringParserPlugin` intercepts the request with the qs (querystring) package to check for arrays in the query strings and separate them: key = ["value1, value2"] => key ["value1", "value2"].
 
 3. `./utils/awsJwtVerifyPlugin` receives the request first using the 'preHandler' hook. it checks for the presence of an Auth header and attempts to validate the token with AWSCognito. Using the groupDiscrimination function, it determines which AWS group(permission) the Cognito user has. it attaches said permission on the request object for further processing.
 

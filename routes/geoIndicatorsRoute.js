@@ -1,4 +1,4 @@
-const geoIndicatorsSchema = require('../schemas/dataSpeciesInventorySchema')
+const geoIndicatorsSchema = require('../schemas/geoIndicatorsSchema')
 module.exports = async function (fastify, opts) {
   fastify.get('/geoIndicators', {
     schema: {query: geoIndicatorsSchema},

@@ -17,10 +17,31 @@ async function dynamicQueryPlugin(fastify, options) {
 
     // Specify the table
     sqlQuery += ` FROM public_test."${schema.$id}" WHERE 1 = 1`;
-
+    console.log(queryParams)
+    console.log(Object.keys(queryParams).includes("start"))
     // Dynamically add conditions based on the presence of query parameters
     Object.keys(queryParams).forEach(param => {
-      // IF QUERYSTRING PARAM IS AN ARRAY:
+      // if the param is start/end 
+      console.log(param)
+      if (param == "start"){
+          sqlQuery += ` AND "DateVisited" >= '${queryParams[param]}'::DATE`
+          console.log(`DELETED ${param} = ${queryParams[param]}`)
+          delete queryParams[param]
+
+        } else if(param == "end"){
+          sqlQuery += ` AND "DateVisited" < '${queryParams[param]}'::DATE`
+          console.log(`DELETED ${param} = ${queryParams[param]}`)
+          delete queryParams[param]
+
+        }
+        
+        
+        // console.log(`DELETED ${param} = ${queryParams[param]}`)
+        // delete queryParams[param]
+      
+      console.log(queryParams)
+      console.log(sqlQuery)
+      // IF QUERYSTRING PARAM  IS AN ARRAY:
       if (columns.includes(param) && typeof(queryParams[param])=="object") {
         // MULTIPLE PARAMS FOR PG
         let multiStr = ` AND "${param}" in (`
@@ -50,13 +71,21 @@ async function dynamicQueryPlugin(fastify, options) {
     if("limit" in queryParams){
       sqlQuery += ` LIMIT $1`
     }
-    if("cursor" in queryParams || "offset" in queryParams){
+    if("cursor" in queryParams || "offset" in queryParams || "skip" in queryParams){
       sqlQuery += ` OFFSET $2`
     }
     console.log(sqlQuery)
     return sqlQuery
     })
 }
+
+// function tablePreferredDate(tablename){
+//   const FormDate = ["dataGap", ]
+//   const DateVisited = ["dataHeader"]
+//   switch(tablename){
+//     case 'dataGap'
+//   }
+// }
 module.exports = fp(dynamicQueryPlugin, {
   fastify: '4.x',
   name: 'dynamicQueryPlugin',
