@@ -10,6 +10,7 @@ const geoIndicators = require('../routes/geoIndicatorsRoute')
 const geoSpecies = require('../routes/geoSpeciesRoute')
 
 async function streamPrefixPlugin(fastify, options) {
+
   fastify.register(dataGap,{
     prefix: '/api/stream'
   })

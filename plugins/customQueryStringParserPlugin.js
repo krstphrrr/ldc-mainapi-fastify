@@ -4,6 +4,7 @@ const qs = require('qs')
 async function customQueryParserPlugin(fastify, options) {
 
   fastify.addHook("onRequest", (request, reply, done) => {
+
     if (options && options.disabled) {
       return done();
     }

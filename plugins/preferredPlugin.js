@@ -7,6 +7,7 @@ async function preferredPlugin(fastify, options) {
 }
 
 async function poolDiscriminator(batchOrStream){
+
   if (batchOrStream.includes('stream')){
     return this.streamingEndpoint
   } else {

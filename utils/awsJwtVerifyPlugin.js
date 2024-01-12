@@ -20,6 +20,7 @@ async function awsJwtVerifyPlugin(fastify, options) {
 
   // prehandler:
   fastify.addHook('preHandler', async (request, reply) => {
+
     const authorizationHeader = request.headers.authorization;
     let verifiedToken
     if (!authorizationHeader) {

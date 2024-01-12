@@ -3,6 +3,7 @@ const fp = require('fastify-plugin')
 
 async function dynamicQueryPlugin(fastify, options) {
   fastify.decorate('dynamicQueryGen', (queryPack, schema) => {
+
     // list of columns
     const columns = Object.keys(schema.properties)
 
