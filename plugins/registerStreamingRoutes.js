@@ -5,6 +5,7 @@ const dataHeight = require('../routes/dataHeightRoute')
 const dataHorizontalFlux = require('../routes/dataHorizontalFluxRoute')
 const dataLPI = require('../routes/dataLPIRoute')
 const dataSoilStability = require('../routes/dataSoilStabilityRoute')
+const dataSpeciesInventory = require('../routes/dataSpeciesInventoryRoute')
 
 async function streamPrefixPlugin(fastify, options) {
   fastify.register(dataGap,{
@@ -28,6 +29,10 @@ async function streamPrefixPlugin(fastify, options) {
   })
 
   fastify.register(dataSoilStability,{
+    prefix: '/api/stream'
+  })
+
+  fastify.register(dataSpeciesInventory,{
     prefix: '/api/stream'
   })
   // add more streaming routes here
