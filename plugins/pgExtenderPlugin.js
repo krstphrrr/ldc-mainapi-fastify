@@ -18,6 +18,9 @@ async function pgExtender(fastify, options){
         case 'restricted':
           console.log("OPCION RESTRICTED")
           return pool.restricted
+        // case when awsplugin has an expired token
+        default:
+          return pool.restricted
       }
     } else {
       return pool.restricted

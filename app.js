@@ -1,5 +1,7 @@
 const path = require('node:path')
 const AutoLoad = require('@fastify/autoload')
+const fastifySwagger = require("@fastify/swagger")
+const fastifySwaggerUI = require("@fastify/swagger-ui")
 
 const awsJwtVerifyPlugin = require('./utils/awsJwtVerifyPlugin');
 
@@ -8,13 +10,25 @@ const options = {
 
 }
 
-// check for token on prehandler
-// attach permission on request 
-// overloaded pg parses permission and returns user 
-// overloaded pg is used on batch/stream 
-// const dataGapSchema = require("./schemas/dataGapSchema")
-// module.exports = async function (fastify, opts) {
-  // fastify.addSchema(dataGapSchema)
+const swaggerOptions = {
+  swagger: {
+      info: {
+          title: "LDC API",
+          description: "API Description",
+          version: "1.0.0",
+      },
+      host: "localhost",
+      schemes: ["http", "https"],
+      consumes: ["application/json"],
+      produces: ["application/json"],
+      tags: [{ name: "Default", description: "Default" }],
+  },
+};
+
+const swaggerUiOptions = {
+  routePrefix: "/docs",
+  exposeRoute: true,
+};
 module.exports = async function (fastify, opts) {
 
   fastify.register(require('@fastify/postgres'),{
@@ -43,7 +57,8 @@ module.exports = async function (fastify, opts) {
     clientId: process.env.CLIENTID,
   });
 
- 
+  fastify.register(fastifySwagger, swaggerOptions)
+  fastify.register(fastifySwaggerUI, swaggerUiOptions)
 
   // Do not touch the following lines
 

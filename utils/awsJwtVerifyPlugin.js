@@ -40,6 +40,8 @@ async function awsJwtVerifyPlugin(fastify, options) {
       request.jwt = verifiedToken;
     } catch (error) {
       console.error('Error verifying JWT:', error);
+
+      // expected payload regardless of authorization
       request.tenant = groupDiscrimination(verifiedToken)
       request.jwt = null;
       }

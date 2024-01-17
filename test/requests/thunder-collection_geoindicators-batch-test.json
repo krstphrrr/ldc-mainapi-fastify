@@ -1,0 +1,148 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "geoindicators-batch-test",
+    "dateExported": "2024-01-17T00:57:10.330Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "8aa87b6a-319b-42d6-9dc2-ce251721295d",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-01-17T00:46:07.922Z",
+            "modified": "2024-01-17T00:46:07.922Z",
+            "headers": []
+        },
+        {
+            "_id": "3f3c28a1-faeb-4a13-a6da-e5709c4b6f62",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-100",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=50000",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-01-17T00:47:37.610Z",
+            "modified": "2024-01-17T00:47:37.610Z",
+            "headers": []
+        },
+        {
+            "_id": "b1a7c850-c684-4202-8765-8f03f6af9878",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-150",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=100000",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-01-17T00:48:09.834Z",
+            "modified": "2024-01-17T00:48:09.834Z",
+            "headers": []
+        },
+        {
+            "_id": "9255741e-aff7-446d-b2d7-45b286b4455c",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-200",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=150000",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-01-17T00:48:56.102Z",
+            "modified": "2024-01-17T00:48:56.102Z",
+            "headers": []
+        },
+        {
+            "_id": "46fbeed5-77d8-48db-9408-9aa0cb6687c5",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-250",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=200000",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-01-17T00:49:24.914Z",
+            "modified": "2024-01-17T00:49:24.914Z",
+            "headers": []
+        },
+        {
+            "_id": "5b7ee2e3-ae89-4704-98e7-f07cfd838dbc",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-300",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=250000",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-01-17T00:50:00.891Z",
+            "modified": "2024-01-17T00:50:00.892Z",
+            "headers": []
+        },
+        {
+            "_id": "f830df6c-66da-4bff-bfa5-26fd5c5b5ce7",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-350",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=300000",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-01-17T00:50:25.370Z",
+            "modified": "2024-01-17T00:50:25.370Z",
+            "headers": []
+        },
+        {
+            "_id": "48598dd6-25b0-4968-98c6-94d4be9bcf86",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-400",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=350000",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-01-17T00:50:57.798Z",
+            "modified": "2024-01-17T00:50:57.798Z",
+            "headers": []
+        },
+        {
+            "_id": "b4fcb2f7-0b95-439d-8312-983748739560",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-450",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=400000",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-01-17T00:51:54.036Z",
+            "modified": "2024-01-17T00:51:54.036Z",
+            "headers": []
+        },
+        {
+            "_id": "8a8122bc-4145-4800-bf99-9b350f009389",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-500",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=450000",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-01-17T00:52:52.816Z",
+            "modified": "2024-01-17T00:52:52.817Z",
+            "headers": []
+        },
+        {
+            "_id": "427c9b71-d2d4-4536-8a27-839de25f97e5",
+            "colId": "68e017af-b013-4bae-a249-c981f7795e36",
+            "containerId": "",
+            "name": "geoind-50k-offset-550",
+            "url": "http://localhost:3000/api/batch/geoIndicators?limit=50000&offset=500000",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2024-01-17T00:53:27.116Z",
+            "modified": "2024-01-17T00:53:27.117Z",
+            "headers": []
+        }
+    ],
+    "settings": {
+        "runOptions": {
+            "delay": 2,
+            "iterations": 1,
+            "dataFilePath": ""
+        }
+    }
+}

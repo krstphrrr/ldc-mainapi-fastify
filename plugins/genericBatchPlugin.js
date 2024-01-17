@@ -21,7 +21,8 @@ async function genericBatchPlugin(fastify, options) {
 
 async function getPostgresBatch( slowQuery, request, pool) {
   let offset = request.query.offset
-  const batchSize = request.query.limit
+  let batchSize = request.query.limit
+  let defaultSize = 50000
   if(request.query.skip){
     offset = request.query.skip
   }
@@ -32,14 +33,24 @@ async function getPostgresBatch( slowQuery, request, pool) {
   if(batchSize && !offset){
     const result = await pool.query(slowQuery, [batchSize])
     return result.rows 
+    
   } else if(batchSize && offset){
     const result = await pool.query(slowQuery, [batchSize, offset])
     return result.rows 
+
   } else if(!batchSize && offset){
-    const result = await pool.query(slowQuery, null)
+    slowQuery += ` LIMIT $1`
+    slowQuery += ` OFFSET $2`
+
+    const result = await pool.query(slowQuery, [defaultSize, offset])
     return result.rows
   } else {
-    const result = await pool.query(slowQuery, null)
+    slowQuery += ` LIMIT $1`
+    
+    const result = await pool.query(
+      slowQuery, 
+      [defaultSize]
+      )
     return result.rows
   }
   return result.rows
