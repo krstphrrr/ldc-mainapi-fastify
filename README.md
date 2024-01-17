@@ -40,15 +40,3 @@
 
 
 
-- ingester changes: new mdb extractor incorporated, mdb handles 
-- api: missing login page and  auto gen docs
-<!--  -->
-- aero runs: aim data done
-- aero runs: new ingest gh
-- rhem runs: create tables/ and incorporate into db
-
-- soil plot characterization and soil 
-
-- new tables on the data repository 
-
-- field length , types
