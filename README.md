@@ -40,3 +40,22 @@
 
 
 
+## Permission strategy: 
+
+- No permissions allowed by default, but if procedure is run on a table and user,
+CRNG, Jornada and NWERN records older than 3 years will be allowed by default. 
+
+- NDOW, NWERN (all records), BLM_AIM are privileged values 
+
+### TODO
+on PG:
+- create new user BLM_NWERN_NDOW etc (combinatorial permutations)
+- add new groups to cognito
+- use new procedure on each user on each table 
+
+on API:
+- add users on the pg pool instantiator
+- parsing new groups on the aws plugin
+
+
+
