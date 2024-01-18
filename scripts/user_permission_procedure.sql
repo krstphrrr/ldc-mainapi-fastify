@@ -32,6 +32,7 @@ DECLARE
   _default_BLM text;
   _default_NWERN_default text;
   _default_allowed text;
+  _default_empty_permissions text;
 
 BEGIN 
   -- begining of query that will be executed
@@ -48,6 +49,7 @@ BEGIN
   _default_NWERN := E'("ProjectKey" ~~* \'NWERN%%\'::text)';
   _default_NWERN_default := E' OR (("FormDate" < (CURRENT_DATE - \'3 years\'::interval year)) AND ("ProjectKey" ~~* \'NWERN%%\'::text))';
   _default_allowed := E' OR ("ProjectKey" ~~* \'Jornada%%\'::text) OR ("ProjectKey" ~~* \'CRNG%%\'::text)';
+  _default_empty_permissions := E' ("ProjectKey" ~~* \'Jornada%%\'::text) OR ("ProjectKey" ~~* \'CRNG%%\'::text)';
   -- assigning values that are used for policy name
   _default_perm_name := 'allow_';
   _NDOWSTR := 'nD';
@@ -58,87 +60,106 @@ BEGIN
   _default_replacement := 'USING ((';
   _default_end := '));';
 
-  -- beginning of forloop
-  FOREACH _perm IN ARRAY _permissions 
   
-  LOOP 
-  -- if permission is on start of array...
-  IF array_position(_permissions, _perm) = 1
-    THEN 
-      CASE 
+  -- if permission array is empty
+  IF (cardinality(_permissions)<1)
+  THEN
+  -- add empty string and continue
+    _default_replacement := CONCAT(_default_replacement, ' ');
+    
+  --  if permission array has anything
+  ELSE
+  	FOREACH _perm IN ARRAY _permissions 
+  	LOOP 
+    -- if permission is on start of array...
+	  IF array_position(_permissions, _perm) = 1
+		THEN 
+		  CASE 
         WHEN _perm ~~* 'ndow' THEN 
+          _default_perm_name := CONCAT(_default_perm_name, _NDOWSTR);
+          _default_replacement := CONCAT(_default_replacement, _default_NDOW); 
+        WHEN _perm ~~* 'nwern' THEN 
+          _default_perm_name := CONCAT(_default_perm_name, _NWERNSTR);
+          _default_replacement := CONCAT(_default_replacement, _default_NWERN); 
+        WHEN _perm ~~* 'blm' THEN 
+          _default_perm_name := CONCAT(_default_perm_name, _BLMSTR);
+          _default_replacement := CONCAT(_default_replacement, _default_BLM); 
+		  END CASE;
+	  ELSIF 
+		--  if persmission is neither on start of array or end of array
+		ARRAY_POSITION(_permissions, _perm) <> 1 
+		AND
+		ARRAY_POSITION(_permissions, _perm) <> ARRAY_UPPER(_permissions, 1)
+		THEN
+		  -- add 'or' 
+		  _default_replacement := CONCAT(_default_replacement, ' OR ');
+
+		  CASE 
+			WHEN _perm ~~* 'ndow' THEN 
 			_default_perm_name := CONCAT(_default_perm_name, _NDOWSTR);
-		    _default_replacement := CONCAT(_default_replacement, _default_NDOW); 
-        WHEN _perm ~~* 'nwern' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _NWERNSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_NWERN); 
-        WHEN _perm ~~* 'blm' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _BLMSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_BLM); 
-      END CASE;
-      
-      -- _default_replacement := CONCAT(_default_replacement, _default_end);
-  ELSIF 
-    --  if persmission is neither on start of array or end of array
-    ARRAY_POSITION(_permissions, _perm) <> 1 
-    AND
-    ARRAY_POSITION(_permissions, _perm) <> ARRAY_UPPER(_permissions, 1)
-    THEN
-      -- add or with concat
-      _default_replacement := CONCAT(_default_replacement, ' OR ');
-	  
-      CASE 
-        WHEN _perm ~~* 'ndow' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _NDOWSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_NDOW); 
-        WHEN _perm ~~* 'nwern' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _NWERNSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_NWERN);
-        WHEN _perm ~~* 'blm' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _BLMSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_BLM); 
-      END CASE;
+			_default_replacement := CONCAT(_default_replacement, _default_NDOW); 
+			WHEN _perm ~~* 'nwern' THEN 
+			_default_perm_name := CONCAT(_default_perm_name, _NWERNSTR);
+			_default_replacement := CONCAT(_default_replacement, _default_NWERN);
+			WHEN _perm ~~* 'blm' THEN 
+			_default_perm_name := CONCAT(_default_perm_name, _BLMSTR);
+			_default_replacement := CONCAT(_default_replacement, _default_BLM); 
+		  END CASE;
 
-  ELSIF 
-    -- if permission is at end of array
-    ARRAY_POSITION(_permissions, _perm) <> 1 
-    AND
-    ARRAY_POSITION(_permissions, _perm) = ARRAY_UPPER(_permissions, 1)
-    THEN
-	  _default_replacement := CONCAT(_default_replacement, ' OR ');
-      CASE 
-        WHEN _perm ~~* 'ndow' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _NDOWSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_NDOW); 
+	  ELSIF 
+		-- if permission is at end of array
+		ARRAY_POSITION(_permissions, _perm) <> 1 
+		AND
+		ARRAY_POSITION(_permissions, _perm) = ARRAY_UPPER(_permissions, 1)
+		THEN
+		  _default_replacement := CONCAT(_default_replacement, ' OR ');
+		  CASE 
+			WHEN _perm ~~* 'ndow' THEN 
+			_default_perm_name := CONCAT(_default_perm_name, _NDOWSTR);
+			_default_replacement := CONCAT(_default_replacement, _default_NDOW); 
 
-        WHEN _perm ~~* 'nwern' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _NWERNSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_NWERN); 
+			WHEN _perm ~~* 'nwern' THEN 
+			_default_perm_name := CONCAT(_default_perm_name, _NWERNSTR);
+			_default_replacement := CONCAT(_default_replacement, _default_NWERN); 
 
-        WHEN _perm ~~* 'blm' THEN 
-        _default_perm_name := CONCAT(_default_perm_name, _BLMSTR);
-        _default_replacement := CONCAT(_default_replacement, _default_BLM); 
+			WHEN _perm ~~* 'blm' THEN 
+			_default_perm_name := CONCAT(_default_perm_name, _BLMSTR);
+			_default_replacement := CONCAT(_default_replacement, _default_BLM); 
 
-      END CASE;
---       _default_replacement := CONCAT(_default_replacement, _default_end);
+		  END CASE;
+		END IF;
+		END LOOP; 
   END IF;
-  
-  END LOOP;
+
 --   OUTSIDELOOP
-	_default_replacement := CONCAT(_default_replacement, _default_allowed);
--- 	  END IF;
-  -- if nwern is in permission set, do not include NWERN_default
-  IF ('NWERN' LIKE ANY(_permissions))
-	  THEN
-		-- if TRUE, nwern should have been handled. no nwern default added
-		_default_replacement := CONCAT(_default_replacement, _default_end);
-	  ELSE
-		-- FALSE, nwern not handled so added default handling (old records allowed)
-		_default_replacement := CONCAT(_default_replacement, _default_NWERN_default);
-		_default_replacement := CONCAT(_default_replacement, _default_end);
+  IF (CARDINALITY(_permissions)<1)
+  	THEN
+	    _default_replacement := CONCAT(_default_replacement, _default_empty_permissions);
+      _default_replacement := CONCAT(_default_replacement, _default_NWERN_default);
+      _default_replacement := CONCAT(_default_replacement, _default_end);
+	ELSE
+		  _default_replacement := CONCAT(_default_replacement, _default_allowed);
+      IF ('NWERN' LIKE ANY(_permissions))
+        THEN
+        -- if TRUE, nwern should have been handled. no nwern default added
+        _default_replacement := CONCAT(_default_replacement, _default_end);
+      ELSIF ('NWERN' NOT LIKE ANY(_permissions))
+      -- FALSE, nwern not handled so added default handling (old records allowed)
+          THEN
+        _default_replacement := CONCAT(_default_replacement, _default_NWERN_default);
+        _default_replacement := CONCAT(_default_replacement, _default_end);
+      END IF;
   END IF;
-  _default_perm_name:=CONCAT(_default_perm_name, '_');
-  _default_perm_name:=CONCAT(_default_perm_name, _role_name);
+  -- dynamically assigning descriptive policy names (allow_permissions_rolename)
+  IF (CARDINALITY(_permissions)<1)
+  THEN 
+    _default_perm_name:=CONCAT(_default_perm_name, 'restricted');
+    _default_perm_name:=CONCAT(_default_perm_name, '_');
+    _default_perm_name:=CONCAT(_default_perm_name, _role_name);
+  ELSE
+    _default_perm_name:=CONCAT(_default_perm_name, '_');
+    _default_perm_name:=CONCAT(_default_perm_name, _role_name);
+  END IF;
   -- replace default query substring with dynamically created one
   _default_query := REPLACE(_default_query, 'USING', _default_replacement);
   
