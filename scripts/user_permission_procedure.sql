@@ -47,7 +47,7 @@ BEGIN
   _default_BLM := E'("ProjectKey" ~~ \'BLM_AIM%%\'::text)';
   _default_NDOW := E'("ProjectKey" ~~* \'NDOW%%\'::text)';
   _default_NWERN := E'("ProjectKey" ~~* \'NWERN%%\'::text)';
-  _default_NWERN_default := E' OR (("FormDate" < (CURRENT_DATE - \'3 years\'::interval year)) AND ("ProjectKey" ~~* \'NWERN%%\'::text))';
+  _default_NWERN_default := E' OR (("DateVisited" < (CURRENT_DATE - \'3 years\'::interval year)) AND ("ProjectKey" ~~* \'NWERN%%\'::text))';
   _default_allowed := E' OR ("ProjectKey" ~~* \'Jornada%%\'::text) OR ("ProjectKey" ~~* \'CRNG%%\'::text)';
   _default_empty_permissions := E' ("ProjectKey" ~~* \'Jornada%%\'::text) OR ("ProjectKey" ~~* \'CRNG%%\'::text)';
   -- assigning values that are used for policy name
@@ -60,13 +60,29 @@ BEGIN
   _default_replacement := 'USING ((';
   _default_end := '));';
 
+  -- handle case where table is DustDeposition (no DateVisited)
+  IF (_table_name = 'dataDustDeposition')
+  THEN
+    _default_NWERN_default := REPLACE(_default_NWERN_default,'DateVisited','collectDate');
+  END IF;
+  
+  IF (_table_name = 'dataPlotCharacterization')
+  THEN
+    _default_NWERN_default := REPLACE(_default_NWERN_default,'DateVisited','EstablishDate');
+  END IF;
+  
+  IF (_table_name = 'tblRHEM') OR (_table_name = 'dataSoilHorizons')
+  THEN
+  	_default_NWERN := ' ';
+    _default_NWERN_default := ' ';
+  END IF;
   
   -- if permission array is empty
   IF (cardinality(_permissions)<1)
   THEN
   -- add empty string and continue
     _default_replacement := CONCAT(_default_replacement, ' ');
-    
+
   --  if permission array has anything
   ELSE
   	FOREACH _perm IN ARRAY _permissions 
