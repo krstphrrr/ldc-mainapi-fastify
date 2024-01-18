@@ -154,7 +154,13 @@ BEGIN
       _default_replacement := CONCAT(_default_replacement, _default_NWERN_default);
       _default_replacement := CONCAT(_default_replacement, _default_end);
 	ELSE
+		IF (_table_name='tblRHEM') OR (_table_name = 'dataSoilHorizons')
+		THEN
+			_default_allowed := REPLACE(_default_allowed,E' OR ("ProjectKey" ~~* \'Jornada%%\'::text)', E' ("ProjectKey" ~~* \'Jornada%%\'::text)');
+			_default_replacement := CONCAT(_default_replacement, _default_allowed);
+		ELSE
 		  _default_replacement := CONCAT(_default_replacement, _default_allowed);
+		END IF;
       IF ('NWERN' LIKE ANY(_permissions))
         THEN
         -- if TRUE, nwern should have been handled. no nwern default added
