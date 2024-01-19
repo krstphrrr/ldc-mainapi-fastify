@@ -73,8 +73,8 @@ BEGIN
   
   IF (_table_name = 'tblRHEM') OR (_table_name = 'dataSoilHorizons')
   THEN
-  	_default_NWERN := ' ';
-    _default_NWERN_default := ' ';
+  	_default_NWERN := ' 1 = 1 ';
+    _default_NWERN_default := ' OR 2 = 1 ';
   END IF;
   
   -- if permission array is empty
@@ -158,7 +158,8 @@ BEGIN
 	ELSE
 		IF (_table_name='tblRHEM') OR (_table_name = 'dataSoilHorizons')
 		THEN
-			_default_allowed := REPLACE(_default_allowed,E' OR ("ProjectKey" ~~* \'Jornada%%\'::text)', E' ("ProjectKey" ~~* \'Jornada%%\'::text)');
+    -- test this one out, seems like its a remnant of the empty array edge case code (RHEM SOIL W NWERN)
+-- 			_default_allowed := REPLACE(_default_allowed,E' OR ("ProjectKey" ~~* \'Jornada%%\'::text)', E' ("ProjectKey" ~~* \'Jornada%%\'::text)');
 			_default_replacement := CONCAT(_default_replacement, _default_allowed);
 		ELSE
 		  _default_replacement := CONCAT(_default_replacement, _default_allowed);
