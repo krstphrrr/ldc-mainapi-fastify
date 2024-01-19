@@ -60,6 +60,9 @@ on API:
 
 - dataDustDeposition only has EstablishDate
 - tblRHEM doesn't have any date fields
+- dataSoilHorizons doesn't have any date fields
+- {blm, nwern} works, {nwern, blm} doesn't -- inserts "or.." statement
 
+ 
 
 

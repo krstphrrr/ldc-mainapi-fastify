@@ -148,11 +148,13 @@ BEGIN
   END IF;
 
 --   OUTSIDELOOP
+--  if permissions are 0
   IF (CARDINALITY(_permissions)<1)
   	THEN
 	    _default_replacement := CONCAT(_default_replacement, _default_empty_permissions);
       _default_replacement := CONCAT(_default_replacement, _default_NWERN_default);
       _default_replacement := CONCAT(_default_replacement, _default_end);
+-- if permission array > 0
 	ELSE
 		IF (_table_name='tblRHEM') OR (_table_name = 'dataSoilHorizons')
 		THEN

@@ -1,3 +1,11 @@
+-- applying the single table procedure across all the table
+
+-- EXAMPLE USAGE:
+-- call public_test.util_dynamic_createallows_alltables(
+-- 	'public_test',
+-- 	'nwern_get',
+-- 	'{"nwern"}'
+-- )
 CREATE OR REPLACE PROCEDURE public_test.util_dynamic_createallows_alltables(
 	IN _schema_name text,
   IN _role_name text, 

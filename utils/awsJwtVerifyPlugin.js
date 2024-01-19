@@ -35,7 +35,7 @@ async function awsJwtVerifyPlugin(fastify, options) {
       }
       
       request.tenant = await groupDiscrimination(verifiedToken)
-
+      
       // Attach the verified token to the request for further use in the route handler
       request.jwt = verifiedToken;
     } catch (error) {
@@ -55,16 +55,49 @@ async function groupDiscrimination(verifiedToken){
     console.log('no hay permiso: limited client');
     return 'restricted';
   }
+
   if (res.hasOwnProperty('cognito:groups')) {
     console.log('it found a group');
-    const [grp] = res['cognito:groups'];
-    switch (grp) {
-      case 'NDOW':
-        console.log('NDOW');
-        return 'unrestricted';
-      default:
-        console.log('but group not NDOW');
-        return 'restricted';
+    const grp = res['cognito:groups'];
+
+    switch (true) {
+      // single permissions
+    case grp.includes("NDOW") && !grp.includes("NWERN") && !grp.includes("BLM") :
+      console.log('NDOW');
+      return 'ndow';
+
+    case !grp.includes("NDOW") && grp.includes("NWERN") && !grp.includes("BLM"):
+      console.log('NWERN');
+      return 'nwern';
+
+    case !grp.includes("NDOW") && !grp.includes("NWERN") && grp.includes("BLM"):
+      console.log('BLM');
+      return 'blm';
+
+    //  two permissions
+    case grp.includes("NDOW") && grp.includes("NWERN") && !grp.includes("BLM"):
+      console.log("ndow and nwern")
+      return 'ndow_nwern'
+    
+    case grp.includes("NDOW") && !grp.includes("NWERN") && grp.includes("BLM"):
+      console.log("ndow and blm")
+      return 'ndow_blm'
+
+    case !grp.includes("NDOW") && grp.includes("NWERN") && grp.includes("BLM"):
+      console.log("nwern and blm")
+      return 'nwern_blm'
+
+    // full permissions
+    case grp.includes("NDOW") && grp.includes("NWERN") && grp.includes("BLM"):
+      console.log("full perms")
+      return 'ndow_blm_nwern'
+
+    default:
+      // console.log(grp)
+      console.log('but group not NDOW');
+      return 'restricted';
+    
+    
     }
   } else {
     console.log('no group found');

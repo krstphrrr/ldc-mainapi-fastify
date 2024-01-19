@@ -30,23 +30,49 @@ const swaggerUiOptions = {
   exposeRoute: true,
 };
 module.exports = async function (fastify, opts) {
-
+// single permission
   fastify.register(require('@fastify/postgres'),{
-    name: 'unrestricted',
-    host: process.env.UN_HOST,
-    port: process.env.UN_PORT,
-    database: process.env.UN_DB,
-    user: process.env.UN_USER,
-    password: process.env.UN_PW,
+    name: 'ndow',
+    connString: connString(process.env.NDOWU, process.env.NDOWPW),
     max:20
   })
+
   fastify.register(require('@fastify/postgres'),{
-    name: 'restricted',
-    host: process.env.RES_HOST,
-    port: process.env.RES_PORT,
-    database: process.env.RES_DB,
-    user: process.env.RES_USER,
-    password: process.env.RES_PW,
+    name: 'blm',
+    connString: connString(process.env.BLMU, process.env.BLMPW),
+    max:20
+  })
+
+  fastify.register(require('@fastify/postgres'),{
+    name: 'nwern',
+    connString: connString(process.env.NWERNU, process.env.NWERNPW),
+    max:20
+  })
+
+  // two permissions
+  fastify.register(require('@fastify/postgres'),{
+    name: 'ndow_nwern',
+    connString: connString(process.env.NDOWNWERNU, process.env.NDOWNWERNPW),
+    max:20
+  })
+
+  fastify.register(require('@fastify/postgres'),{
+    name: 'nwern_blm',
+    connString: connString(process.env.BLMNWERNU, process.env.BLMNWERNPW),
+    max:20
+  })
+
+  fastify.register(require('@fastify/postgres'),{
+    name: 'ndow_blm',
+    connString: connString(process.env.NDOWBLMU, process.env.NDOWBLMPW),
+    max:20
+  })
+
+  // full permission
+
+  fastify.register(require('@fastify/postgres'),{
+    name: 'ndow_blm_nwern',
+    connString: connString(process.env.NDOWBLMNWERNU, process.env.NDOWBLMNWERNPW),
     max:20
   })
 
@@ -56,6 +82,19 @@ module.exports = async function (fastify, opts) {
     tokenUse: process.env.TOKENUSE,
     clientId: process.env.CLIENTID,
   });
+
+
+
+
+  fastify.register(require('@fastify/postgres'),{
+    name: 'restricted',
+    host: process.env.RES_HOST,
+    port: process.env.RES_PORT,
+    database: process.env.RES_DB,
+    user: process.env.RES_USER,
+    password: process.env.RES_PW,
+    max:20
+  })
 
   fastify.register(fastifySwagger, swaggerOptions)
   fastify.register(fastifySwaggerUI, swaggerUiOptions)
@@ -69,6 +108,7 @@ module.exports = async function (fastify, opts) {
     dir: path.join(__dirname, 'plugins'),
     options: Object.assign({}, opts)
   })
+  
 
   // This loads all plugins defined in routes
   // define your routes in one of these
@@ -76,6 +116,12 @@ module.exports = async function (fastify, opts) {
   //   dir: path.join(__dirname, 'routes'),
   //   options: Object.assign({}, opts)
   // })
+}
+
+
+ function connString(unres_u, unres_pw){
+  const str = `postgres://${unres_u}:${unres_pw}@${process.env.UN_HOST}:${process.env.UN_PORT}/${process.env.UN_DB}`
+  return str
 }
 
 module.exports.options = options
