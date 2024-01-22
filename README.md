@@ -14,11 +14,11 @@
 - [x] current LDC endpoint migration
 - [ ] like functionality
 - [x] comma separated param parsing
-- [ ] cognito api login portal
+- [x] cognito api login portal
 
 ### portability
-- [ ] cicd git
-- [ ] containerization 
+- [x] cicd git
+- [x] containerization 
 - [ ] dev/prod/test subdomain registration
 
 
@@ -49,13 +49,13 @@ CRNG, Jornada and NWERN records older than 3 years will be allowed by default.
 
 ### TODO
 on PG:
-- create new user BLM_NWERN_NDOW etc (combinatorial permutations)
-- add new groups to cognito
-- use new procedure on each user on each table 
+DONE create new user BLM_NWERN_NDOW etc (combinatorial permutations)
+DONE add new groups to cognito
+DONE use new procedure on each user on each table 
 
 on API:
-- add users on the pg pool instantiator
-- parsing new groups on the aws plugin
+DONE add users on the pg pool instantiator
+DONE parsing new groups on the aws plugin
 
 
 - dataDustDeposition only has EstablishDate

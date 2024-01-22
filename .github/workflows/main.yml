@@ -1,4 +1,4 @@
-name: CI_nestapi
+name: CI_fastifyapi
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       - name: Read package.json
         uses: tyankatsu0105/read-package-version-actions@v1
         with: 
-          path: "./nest"
+          path: "./src"
         id: package-version
 
     # keeping track of docker image on the hub 
@@ -37,9 +37,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./nest/node.Dockerfile
+          file: ./src/node.Dockerfile
           push: true
-          tags: landscapedatacommons/nest_api:${{ steps.package-version.outputs.version }}
+          tags: landscapedatacommons/fast_api:${{ steps.package-version.outputs.version }}
 
     # deploy on remote server
       - uses: appleboy/ssh-action@master
@@ -48,5 +48,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            docker service update nest_nest \
-            --image=docker.io/landscapedatacommons/nest_api:${{ steps.package-version.outputs.version }}
+            docker service update fastdev_fastify \
+            --image=docker.io/landscapedatacommons/fast_api:${{ steps.package-version.outputs.version }}
