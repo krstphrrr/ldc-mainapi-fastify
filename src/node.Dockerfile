@@ -6,9 +6,9 @@ FROM node:21.6-alpine As build
 
 WORKDIR /usr/src/app
 
-COPY --chown=node:node . .
+COPY --chown=node:node ./src .
 
-RUN npm i
+RUN npm i 
 
 # COPY --chown=node:node . .
 
