@@ -105,7 +105,8 @@ module.exports = async function (fastify, opts) {
   // those should be support plugins that are reused
   // through your application
   fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'plugins'),
+    dir: path.join(__dirname,'plugins'),
+    // dirNameRoutePrefix: false,
     options: Object.assign({}, opts)
   })
   
@@ -113,7 +114,7 @@ module.exports = async function (fastify, opts) {
   // This loads all plugins defined in routes
   // define your routes in one of these
   // fastify.register(AutoLoad, {
-  //   dir: path.join(__dirname, 'routes'),
+  //   dir: path.join(__dirname,src, 'routes'),
   //   options: Object.assign({}, opts)
   // })
 }

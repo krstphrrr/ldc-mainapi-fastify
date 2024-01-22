@@ -9,6 +9,8 @@ const dataSpeciesInventory = require('../routes/dataSpeciesInventoryRoute')
 const geoIndicators = require('../routes/geoIndicatorsRoute')
 const geoSpecies = require('../routes/geoSpeciesRoute')
 
+const permissionsTest = require('../routes/dataGapTest')
+
 async function streamPrefixPlugin(fastify, options) {
 
   fastify.register(dataGap,{
@@ -46,6 +48,12 @@ async function streamPrefixPlugin(fastify, options) {
   fastify.register(geoSpecies,{
     prefix: '/api/stream'
   })
+
+  fastify.register(permissionsTest,{
+    prefix: '/api/stream'
+  })
+
+  
   // add more streaming routes here
 }
 module.exports = fp(streamPrefixPlugin, {
