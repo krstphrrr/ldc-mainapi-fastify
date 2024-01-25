@@ -30,7 +30,10 @@ BEGIN
                     'geoSpecies',
                     'dataPlotCharacterization',
                     'tblRHEM',
-                    'dataSoilHorizons'
+                    'dataSoilHorizons',
+                    'dataPlotCharacterization',
+                    'dataSoilHorizons',
+                    'tblRHEM'
                   ];
   -- function that accepts rule, user, schema
   FOREACH _table_name IN ARRAY _table_names

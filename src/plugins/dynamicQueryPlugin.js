@@ -16,7 +16,11 @@ async function dynamicQueryPlugin(fastify, options) {
     sqlQuery += columns.map(column => `"${column}"`).join(', ');
 
     // Specify the table
-    sqlQuery += ` FROM public_test."${schema.$id}" WHERE 1 = 1`;
+    if(schema.$id!="aero_summary"){
+      sqlQuery += ` FROM public_test."${schema.$id}" WHERE 1 = 1`;
+    } else {
+      sqlQuery += ` FROM aero_data."${schema.$id}" WHERE 1 = 1`;
+    }
     console.log(queryParams)
     console.log(Object.keys(queryParams).includes("start"))
     // Dynamically add conditions based on the presence of query parameters

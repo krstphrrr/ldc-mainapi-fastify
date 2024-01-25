@@ -61,21 +61,21 @@ BEGIN
   _default_end := '));';
 
   -- handle case where table is DustDeposition (no DateVisited)
-  IF (_table_name = 'dataDustDeposition')
-  THEN
-    _default_NWERN_default := REPLACE(_default_NWERN_default,'DateVisited','collectDate');
-  END IF;
+--   IF (_table_name = 'dataDustDeposition')
+--   THEN
+--     _default_NWERN_default := REPLACE(_default_NWERN_default,'DateVisited','collectDate');
+--   END IF;
   
-  IF (_table_name = 'dataPlotCharacterization')
-  THEN
-    _default_NWERN_default := REPLACE(_default_NWERN_default,'DateVisited','EstablishDate');
-  END IF;
+--   IF (_table_name = 'dataPlotCharacterization')
+--   THEN
+--     _default_NWERN_default := REPLACE(_default_NWERN_default,'DateVisited','EstablishDate');
+--   END IF;
   
-  IF (_table_name = 'tblRHEM') OR (_table_name = 'dataSoilHorizons')
-  THEN
-  	_default_NWERN := ' 1 = 1 ';
-    _default_NWERN_default := ' OR 2 = 1 ';
-  END IF;
+--   IF (_table_name = 'tblRHEM') OR (_table_name = 'dataSoilHorizons')
+--   THEN
+--   	_default_NWERN := ' 1 = 1 ';
+--     _default_NWERN_default := ' OR 2 = 1 ';
+--   END IF;
   
   -- if permission array is empty
   IF (cardinality(_permissions)<1)
@@ -156,14 +156,14 @@ BEGIN
       _default_replacement := CONCAT(_default_replacement, _default_end);
 -- if permission array > 0
 	ELSE
-		IF (_table_name='tblRHEM') OR (_table_name = 'dataSoilHorizons')
-		THEN
-    -- test this one out, seems like its a remnant of the empty array edge case code (RHEM SOIL W NWERN)
--- 			_default_allowed := REPLACE(_default_allowed,E' OR ("ProjectKey" ~~* \'Jornada%%\'::text)', E' ("ProjectKey" ~~* \'Jornada%%\'::text)');
-			_default_replacement := CONCAT(_default_replacement, _default_allowed);
-		ELSE
-		  _default_replacement := CONCAT(_default_replacement, _default_allowed);
-		END IF;
+		_default_replacement := CONCAT(_default_replacement, _default_allowed);
+-- 		IF (_table_name='tblRHEM') OR (_table_name = 'dataSoilHorizons')
+-- 		THEN
+-- -- 			_default_allowed := REPLACE(_default_allowed,E' OR ("ProjectKey" ~~* \'Jornada%%\'::text)', E' ("ProjectKey" ~~* \'Jornada%%\'::text)');
+-- 			_default_replacement := CONCAT(_default_replacement, _default_allowed);
+-- 		ELSE
+-- 		  _default_replacement := CONCAT(_default_replacement, _default_allowed);
+-- 		END IF;
       IF ('NWERN' LIKE ANY(_permissions))
         THEN
         -- if TRUE, nwern should have been handled. no nwern default added

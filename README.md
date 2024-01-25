@@ -49,20 +49,25 @@ CRNG, Jornada and NWERN records older than 3 years will be allowed by default.
 
 ### TODO
 on PG:
-DONE create new user BLM_NWERN_NDOW etc (combinatorial permutations)
-DONE add new groups to cognito
-DONE use new procedure on each user on each table 
+- DONE create new user BLM_NWERN_NDOW etc (combinatorial permutations)
+- DONE add new groups to cognito
+- DONE use new procedure on each user on each table 
+- figure out permissions scheme (if any) on aero_summary
 
 on API:
-DONE add users on the pg pool instantiator
-DONE parsing new groups on the aws plugin
+- DONE add users on the pg pool instantiator
+- DONE parsing new groups on the aws plugin
+- add schemaplan route (preferrably, automated ingest/deployment after a github commit..)
+- maybe: make streaming default, and copy `/api/v1/` url scheme 
 
 
-- dataDustDeposition only has EstablishDate
-- tblRHEM doesn't have any date fields
-- dataSoilHorizons doesn't have any date fields
-- {blm, nwern} works, {nwern, blm} doesn't -- inserts "or.." statement
+- DONE dataDustDeposition only has EstablishDate (dateVisited)
+- DONE tblRHEM doesn't have any datde fields (dateVisited)
+- DONE dataPlotCharacterization doesn't have any date fields
 
- 
+
+ 1. test time
+ 2. tables without date fields 
+ 3. extra/missing features (start/end, like,  tblSchema,aerosummary)
 
 

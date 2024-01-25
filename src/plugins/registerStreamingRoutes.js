@@ -8,6 +8,10 @@ const dataSoilStability = require('../routes/dataSoilStabilityRoute')
 const dataSpeciesInventory = require('../routes/dataSpeciesInventoryRoute')
 const geoIndicators = require('../routes/geoIndicatorsRoute')
 const geoSpecies = require('../routes/geoSpeciesRoute')
+const aeroSummary = require('../routes/dataAeroSummaryRoute')
+const dataPlotCharacterization = require('../routes/dataPlotCharacterizationRoute')
+const dataSoilHorizons = require('../routes/dataSoilHorizonsRoute')
+const tblRHEM = require('../routes/tblRHEMRoute')
 
 const permissionsTest = require('../routes/dataGapTest')
 
@@ -52,6 +56,23 @@ async function streamPrefixPlugin(fastify, options) {
   fastify.register(permissionsTest,{
     prefix: '/api/stream'
   })
+
+  fastify.register(aeroSummary,{
+    prefix: '/api/stream'
+  })
+
+  fastify.register(dataPlotCharacterization,{
+    prefix: '/api/stream'
+  })
+
+  fastify.register(dataSoilHorizons,{
+    prefix: '/api/stream'
+  })
+
+  fastify.register(tblRHEM,{
+    prefix: '/api/stream'
+  })
+
 
   
   // add more streaming routes here

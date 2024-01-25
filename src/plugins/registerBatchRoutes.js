@@ -8,8 +8,13 @@ const dataSoilStability = require('../routes/dataSoilStabilityRoute')
 const dataSpeciesInventory = require('../routes/dataSpeciesInventoryRoute')
 const geoIndicators = require('../routes/geoIndicatorsRoute') 
 const geoSpecies = require('../routes/geoSpeciesRoute')
+const aeroSummary = require('../routes/dataAeroSummaryRoute')
+const dataPlotCharacterization = require('../routes/dataPlotCharacterizationRoute')
+const dataSoilHorizons = require('../routes/dataSoilHorizonsRoute')
+const tblRHEM = require('../routes/tblRHEMRoute')
 
 const permissionsTest = require('../routes/dataGapTest')
+
 
 async function batchPrefixPlugin(fastify, options) {
   fastify.register(dataGap,{
@@ -49,6 +54,22 @@ async function batchPrefixPlugin(fastify, options) {
   })
 
   fastify.register(permissionsTest,{
+    prefix: '/api/batch'
+  })
+
+  fastify.register(aeroSummary,{
+    prefix: '/api/batch'
+  })
+
+  fastify.register(dataPlotCharacterization,{
+    prefix: '/api/batch'
+  })
+  
+  fastify.register(dataSoilHorizons,{
+    prefix: '/api/batch'
+  })
+
+  fastify.register(tblRHEM,{
     prefix: '/api/batch'
   })
   // add more batch routes here
