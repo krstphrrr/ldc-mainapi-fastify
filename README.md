@@ -4,6 +4,9 @@
 ## updates: 
 2024-02-29: v1.0.5
 - parses the queryparam 'take' as an alternative to 'limit' 
+- bumped docker/login-action to v3
+- bumped actions/checkout to v4.1.1
+
 2024-02-29: v1.0.4
 - made streaming default, changed the `/api/stream` to `/api/v1`.
 - batch is now an option if the query param 'batch=true' is included in the request

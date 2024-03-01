@@ -20,6 +20,11 @@ async function awsJwtVerifyPlugin(fastify, options) {
 
   // prehandler:
   fastify.addHook('preHandler', async (request, reply) => {
+    // prehandling the request params
+    if(request.query.take){
+      request.query.limit = request.query.take
+      delete request.query.take
+    }
 
     const authorizationHeader = request.headers.authorization;
     let verifiedToken

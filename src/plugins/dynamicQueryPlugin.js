@@ -23,7 +23,6 @@ async function dynamicQueryPlugin(fastify, options) {
       sqlQuery += ` FROM aero_data."${schema.$id}" WHERE 1 = 1`;
     }
     
-    
     if(queryParams.hasOwnProperty('batch')){
       // parse batch queryparam
       queryParams.batch = queryParams.batch.toLowerCase()
@@ -92,7 +91,7 @@ async function dynamicQueryPlugin(fastify, options) {
       }
       
     });
-    if("limit" in queryParams || "take" in queryParams){
+    if("limit" in queryParams){
       sqlQuery += ` LIMIT $1`
     }
     if("cursor" in queryParams || "offset" in queryParams || "skip" in queryParams){
