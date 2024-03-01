@@ -92,7 +92,7 @@ async function dynamicQueryPlugin(fastify, options) {
       }
       
     });
-    if("limit" in queryParams){
+    if("limit" in queryParams || "take" in queryParams){
       sqlQuery += ` LIMIT $1`
     }
     if("cursor" in queryParams || "offset" in queryParams || "skip" in queryParams){
