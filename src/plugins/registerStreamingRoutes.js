@@ -14,64 +14,37 @@ const dataSoilHorizons = require('../routes/dataSoilHorizonsRoute')
 const tblRHEM = require('../routes/tblRHEMRoute')
 
 const permissionsTest = require('../routes/dataGapTest')
-
+const PREFIX_CONSTANT = '/api/v1'
 async function streamPrefixPlugin(fastify, options) {
 
-  fastify.register(dataGap,{
-    prefix: '/api/stream'
-  })
+  opts = {...options, prefix: PREFIX_CONSTANT}
+  fastify.register(dataGap, opts)
 
-  fastify.register(dataHeader,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataHeader, opts)
 
-  fastify.register(dataHeight,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataHeight, opts)
 
-  fastify.register(dataHorizontalFlux,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataHorizontalFlux, opts)
 
-  fastify.register(dataLPI,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataLPI, opts)
 
-  fastify.register(dataSoilStability,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataSoilStability, opts)
 
-  fastify.register(dataSpeciesInventory,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataSpeciesInventory, opts)
 
-  fastify.register(geoIndicators,{
-    prefix: '/api/stream'
-  })
+  fastify.register(geoIndicators, opts)
 
-  fastify.register(geoSpecies,{
-    prefix: '/api/stream'
-  })
+  fastify.register(geoSpecies, opts)
 
-  fastify.register(permissionsTest,{
-    prefix: '/api/stream'
-  })
+  fastify.register(permissionsTest, opts)
 
-  fastify.register(aeroSummary,{
-    prefix: '/api/stream'
-  })
+  fastify.register(aeroSummary, opts)
 
-  fastify.register(dataPlotCharacterization,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataPlotCharacterization, opts)
 
-  fastify.register(dataSoilHorizons,{
-    prefix: '/api/stream'
-  })
+  fastify.register(dataSoilHorizons, opts)
 
-  fastify.register(tblRHEM,{
-    prefix: '/api/stream'
-  })
+  fastify.register(tblRHEM, opts)
 
 
   

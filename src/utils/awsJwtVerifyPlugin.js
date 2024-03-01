@@ -7,7 +7,7 @@ async function awsJwtVerifyPlugin(fastify, options) {
   // attach the permission on the tenant property of the request object
   // this plugin is invoked on each request before the route is engaged.
   const { userPoolId, tokenUse, clientId } = options;
-
+  console.log("AWSPLUGIN")
   if (!userPoolId || !tokenUse || !clientId) {
     throw new Error('Invalid configuration for AWS Cognito JWT verification.');
   }

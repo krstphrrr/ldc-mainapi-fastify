@@ -4,6 +4,7 @@ const fastifySwagger = require("@fastify/swagger")
 const fastifySwaggerUI = require("@fastify/swagger-ui")
 
 const awsJwtVerifyPlugin = require('./utils/awsJwtVerifyPlugin');
+// const routesv1 = require('./routes')
 
 // Pass --options via CLI arguments in command to enable these options.
 const options = {
@@ -30,6 +31,17 @@ const swaggerUiOptions = {
   exposeRoute: true,
 };
 module.exports = async function (fastify, opts) {
+
+  fastify.register((fastify,opts, done)=>{
+    fastify.get('/',(req,res)=>{
+      let updated = new Date(2024,2,29)
+      res.send({"lastUpdated":updated.toISOString()})
+    
+    })
+    done()
+  })
+
+  // fastify.register(routesv1,{prefix: '/v1'})
 // single permission
   fastify.register(require('@fastify/postgres'),{
     name: 'ndow',

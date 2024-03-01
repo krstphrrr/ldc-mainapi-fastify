@@ -6,7 +6,8 @@ const fp = require('fastify-plugin')
 // to export the decorators to the outer scope
 
 module.exports = fp(async function (fastify, opts) {
-  fastify.decorate('someSupport', function () {
-    return 'hugs'
+  // initialize object that will maintain state for batch or not
+  fastify.decorate('batchCheck', {
+    batch:false
   })
 })

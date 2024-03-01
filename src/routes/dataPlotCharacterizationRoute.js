@@ -8,7 +8,7 @@ module.exports = async function (fastify, opts) {
       request.slowQuery = query
 
       try {
-        const preferredPool = await fastify.preferredPool(opts.prefix)
+        const preferredPool = await fastify.preferredPool(fastify.batchCheck.batch)
         return preferredPool(request, reply)
         
       } catch (error) {
@@ -18,3 +18,4 @@ module.exports = async function (fastify, opts) {
   }
  );
 }
+

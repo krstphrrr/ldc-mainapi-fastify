@@ -1,5 +1,12 @@
 # fastify main api
 
+
+## updates: 
+- made streaming default, changed the `/api/stream` to `/api/v1`.
+- batch is now an option if the query param 'batch=true' is included in the request
+ex: `api.com\table?limit=3&batch=true` (note the batch=true)
+- upgraded build-push-action from v3 to v5.1.0
+
 ## features TODO
 ### functional features
 - [x] database multitenancy
@@ -21,6 +28,8 @@
 - [x] containerization 
 - [ ] dev/prod/test subdomain registration
 
+## PLUGIN ORDER
+queryparser>dynamicquery>genericbatch
 
 ## Request flow:
 

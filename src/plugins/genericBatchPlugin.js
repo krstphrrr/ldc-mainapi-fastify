@@ -4,6 +4,7 @@ async function genericBatchPlugin(fastify, options) {
 // plugin to create a batch pg pool: requires the tenant property
 // inside the request object to discriminate between users. 
   fastify.decorate('batchEndpoint', async (request, reply) => {
+    console.log("GENERICBATCH")
     try {
       const { slowQuery } = request;
 

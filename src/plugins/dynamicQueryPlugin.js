@@ -3,7 +3,8 @@ const fp = require('fastify-plugin')
 
 async function dynamicQueryPlugin(fastify, options) {
   fastify.decorate('dynamicQueryGen', (queryPack, schema) => {
-
+    console.log("DYNAMICQUERY")
+    
     // list of columns
     const columns = Object.keys(schema.properties)
 
@@ -21,7 +22,26 @@ async function dynamicQueryPlugin(fastify, options) {
     } else {
       sqlQuery += ` FROM aero_data."${schema.$id}" WHERE 1 = 1`;
     }
-    console.log(queryParams)
+    
+    
+    if(queryParams.hasOwnProperty('batch')){
+      // parse batch queryparam
+      queryParams.batch = queryParams.batch.toLowerCase()
+      
+      if(queryParams.batch == 'true'){
+        
+        
+        fastify.batchCheck.batch = true
+        delete queryParams.batch
+      } else{
+        
+        fastify.batchCheck.batch = false
+        delete queryParams.batch
+      }
+
+      
+    }
+    console.log(options)
     console.log(Object.keys(queryParams).includes("start"))
     // Dynamically add conditions based on the presence of query parameters
     Object.keys(queryParams).forEach(param => {

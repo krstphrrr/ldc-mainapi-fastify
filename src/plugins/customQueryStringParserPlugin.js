@@ -4,7 +4,7 @@ const qs = require('qs')
 async function customQueryParserPlugin(fastify, options) {
 
   fastify.addHook("onRequest", (request, reply, done) => {
-
+    console.log("QUERYPARSER")
     if (options && options.disabled) {
       return done();
     }
@@ -19,6 +19,7 @@ async function customQueryParserPlugin(fastify, options) {
     const query = querySymbolIndex !== -1 ? url.slice(querySymbolIndex + 1) : "";
 
     request.query = qs.parse(query, {comma:true, parseArrays:true});
+    console.log(request.query)
 
     done();
 
