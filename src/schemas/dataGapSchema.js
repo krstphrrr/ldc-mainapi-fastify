@@ -126,6 +126,8 @@ const dataGapSchema = {
       anyOf: [
         { type: 'number' },
         { type: 'array', items: { type: 'number' } },
+        // validation exception test for gt: lt: operators
+        { type: 'string' }
       ],
        
     },

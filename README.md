@@ -2,6 +2,13 @@
 
 
 ## updates: 
+
+2024-03-04: v1.0.5 (no change)
+- added params filters to test the gt and lt functionality
+- modified gap schema on a single field (GapMin) to allow strings 
+- added the plugin inside the gap route, but will probably end up inside
+the dynamic query generator plugin 
+
 2024-02-29: v1.0.5
 - parses the queryparam 'take' as an alternative to 'limit' 
 - bumped docker/login-action to v3
@@ -14,6 +21,14 @@ ex: `api.com\table?limit=3&batch=true` (note the batch=true)
 - upgraded build-push-action from v3 to v5.1.0
 
 ## features TODO
+
+- limit on all queries, if no limit is set, to 50k
+- make github actions that reads package.json version (the one in use is deprecated)
+- parse gt lt 
+- change detector in main.yml. if no code inside the src directory is altered, do not start a run. (for instance, if the readme is edited)
+- fix docs
+- 
+
 ### functional features
 - [x] database multitenancy
 - - 2024-01-04 official pg has multiuser capability 

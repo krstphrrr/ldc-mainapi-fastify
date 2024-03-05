@@ -40,7 +40,7 @@ async function dynamicQueryPlugin(fastify, options) {
 
       
     }
-    console.log(options)
+    
     console.log(Object.keys(queryParams).includes("start"))
     // Dynamically add conditions based on the presence of query parameters
     Object.keys(queryParams).forEach(param => {
@@ -87,6 +87,7 @@ async function dynamicQueryPlugin(fastify, options) {
         sqlQuery += ` AND "${param}" = '${queryParams[param]}'`;
       }
       if (columns.includes(param) && typeof(queryParams[param])=="number") {
+        // HERE parse with filterParse plugin
         sqlQuery += ` AND "${param}" = ${queryParams[param]}`;
       }
       
