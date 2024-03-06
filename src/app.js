@@ -34,7 +34,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.register((fastify,opts, done)=>{
     fastify.get('/',(req,res)=>{
-      let updated = new Date(2024,2,29)
+      let updated = new Date(2024,3,6)
       res.send({"lastUpdated":updated.toISOString()})
     
     })

@@ -5,7 +5,7 @@ const dataGapSchema = {
   properties: {
     rid: {
       anyOf: [
-        { type: 'integer' },
+        { type: 'integer' }, { type: 'string' },
         { type: 'array', items: { type: 'integer' } },
       ],
        
@@ -40,28 +40,28 @@ const dataGapSchema = {
     },
     SeqNo: {
       anyOf: [
-        { type: 'integer' },
+        { type: 'integer' }, { type: 'string' },
         { type: 'array', items: { type: 'integer' } },
       ],
        
     },
     GapStart: {
       anyOf: [
-        { type: 'number' },
+        { type: 'number' }, { type: 'string' },
         { type: 'array', items: { type: 'number' } },
       ],
        
     },
     GapEnd: {
       anyOf: [
-        { type: 'number' },
+        { type: 'number' }, { type: 'string' },
         { type: 'array', items: { type: 'number' } },
       ],
        
     },
     Gap: {
       anyOf: [
-        { type: 'number' },
+        { type: 'number' }, { type: 'string' },
         { type: 'array', items: { type: 'number' } },
       ],
        
@@ -110,14 +110,14 @@ const dataGapSchema = {
     },
     Measure: {
       anyOf: [
-        { type: 'integer' },
+        { type: 'integer' }, { type: 'string' },
         { type: 'array', items: { type: 'integer' } },
       ],
        
     },
     LineLengthAmount: {
       anyOf: [
-        { type: 'number' },
+        { type: 'number' }, { type: 'string' },
         { type: 'array', items: { type: 'number' } },
       ],
        
@@ -133,7 +133,7 @@ const dataGapSchema = {
     },
     GapData: {
       anyOf: [
-        { type: 'integer' },
+        { type: 'integer' }, { type: 'string' },
         { type: 'array', items: { type: 'integer' } },
       ],
        
@@ -175,14 +175,14 @@ const dataGapSchema = {
     },
     NoCanopyGaps: {
       anyOf: [
-        { type: 'integer' },
+        { type: 'integer' }, { type: 'string' },
         { type: 'array', items: { type: 'integer' } },
       ],
        
     },
     NoBasalGaps: {
       anyOf: [
-        { type: 'integer' },
+        { type: 'integer' }, { type: 'string' },
         { type: 'array', items: { type: 'integer' } },
       ],
        

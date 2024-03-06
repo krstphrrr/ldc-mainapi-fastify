@@ -60,3 +60,5 @@ profile*
 # credz
 
 **/.env
+
+registerBatchRoutes.js

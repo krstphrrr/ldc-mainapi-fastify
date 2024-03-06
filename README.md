@@ -2,6 +2,10 @@
 
 
 ## updates: 
+2024-03-06: v1.0.6
+- enabled parsing of greaterthan, lessthan, greaterequalthan,lessequalthan throughout the whole application using this syntax on numeric fields: `http GET /api/v1/dataGap?GapMin=get:5[and]lt:20`; gt for greater than, lt for less than, get for greater or equal than, let for less or equal than
+
+- modified all the numeric(including integers) type fields on each request validation schema to allow for strings.
 
 2024-03-04: v1.0.5 (no change)
 - added params filters to test the gt and lt functionality

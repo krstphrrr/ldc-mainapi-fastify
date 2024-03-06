@@ -4,6 +4,9 @@ const fp = require('fastify-plugin')
 async function dynamicQueryPlugin(fastify, options) {
   fastify.decorate('dynamicQueryGen', (queryPack, schema) => {
     console.log("DYNAMICQUERY")
+    // LIST OF NUMERIC FIELDS FOR EACH SCHEMA
+    const numberFields = fastify.numericFieldList(schema)
+    
     
     // list of columns
     const columns = Object.keys(schema.properties)
@@ -82,9 +85,22 @@ async function dynamicQueryPlugin(fastify, options) {
         multiStr += `) `
         sqlQuery += multiStr
       }
+      
+      
       // IF QUERYSTRING PARAM IS NOT AN ARRAY:
-      if (columns.includes(param) && typeof(queryParams[param])=="string") {
-        sqlQuery += ` AND "${param}" = '${queryParams[param]}'`;
+      if (
+        columns.includes(param) && 
+        typeof(queryParams[param])=="string"
+        // CHECK IF STRING FIELD IS ACTUALLY A NUMBER COLUMN 
+        ) {
+          // if the queryparam is NOT string value for a NUMERIC FIELD
+          if(!numberFields.includes(param)){
+            sqlQuery += ` AND "${param}" = '${queryParams[param]}'`;
+
+          } else {
+          // if the queryparam IS a string value for a NUMERIC FIELD
+            sqlQuery += fastify.filterParse(param, queryParams[param])
+          }
       }
       if (columns.includes(param) && typeof(queryParams[param])=="number") {
         // HERE parse with filterParse plugin

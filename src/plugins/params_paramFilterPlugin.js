@@ -1,21 +1,22 @@
 const fp = require('fastify-plugin')
 
 
-async function paramFilter(fastify, options) {
+function paramFilter(fastify, options, done) {
   // extracts numerical fields on any schema to an array
   // to help validate which fields with gt / lt operator are not
   // strings or booleans 
 
-  fastify.decorate('paramFilter', numberFilter)
+  fastify.decorate('numericFieldList', numberFilter)
+  done()
 }
 
-async function numberFilter(schema){
+function numberFilter(schema){
   
-  const filteredProperties = await filterIntegerProperties(schema);
+  const filteredProperties = filterIntegerProperties(schema);
   return filteredProperties
 }
 
-async function filterIntegerProperties(obj) {
+function filterIntegerProperties(obj) {
   const filteredObj = [];
 
   

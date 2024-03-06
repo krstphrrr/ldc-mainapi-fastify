@@ -27,10 +27,10 @@ const dataPlotCharacterizationSchema = {
       oneOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
     },
     Slope: {
-      oneOf: [{ type: "number" }, { type: "array", items: { type: "number" } }],
+      oneOf: [{ type: 'number' }, { type: 'string' }, { type: "array", items: { type: "number" } }],
     },
     Aspect: {
-      oneOf: [{ type: "number" }, { type: "array", items: { type: "number" } }],
+      oneOf: [{ type: 'number' }, { type: 'string' }, { type: "array", items: { type: "number" } }],
     },
     LandscapeType: {
       oneOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
@@ -39,16 +39,16 @@ const dataPlotCharacterizationSchema = {
       oneOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
     },
     Elevation: {
-      oneOf: [{ type: "number" }, { type: "array", items: { type: "number" } }],
+      oneOf: [{ type: 'number' }, { type: 'string' }, { type: "array", items: { type: "number" } }],
     },
     SoilSeries: {
       oneOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
     },
     Longitude_NAD83: {
-      oneOf: [{ type: "number" }, { type: "array", items: { type: "number" } }],
+      oneOf: [{ type: 'number' }, { type: 'string' }, { type: "array", items: { type: "number" } }],
     },
     Latitude_NAD83: {
-      oneOf: [{ type: "number" }, { type: "array", items: { type: "number" } }],
+      oneOf: [{ type: 'number' }, { type: 'string' }, { type: "array", items: { type: "number" } }],
     },
     SlopeShapeVertical: {
       oneOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
