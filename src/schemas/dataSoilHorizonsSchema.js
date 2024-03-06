@@ -1,4 +1,5 @@
 const dataSoilHorizonsSchema = {
+  $id: 'dataSoilHorizons',
   type: "object",
   properties: {
     ProjectKey: {

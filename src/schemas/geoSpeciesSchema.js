@@ -1,5 +1,5 @@
 const geoSpeciesSchema = {
-    $id: 'dataLPI',
+    $id: 'geoSpecies',
     type: 'object',
     properties: {
       rid: { anyOf: [{ type: 'integer' }, { type: 'string' }, { type: 'array', items: { type: 'integer' } }] },
