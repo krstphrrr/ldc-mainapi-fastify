@@ -7,10 +7,18 @@ async function filterParsePlugin(fastify, options) {
 }
 
 function filterParse(param, paramValue){
+  // (key:value) | (key:value[and]key:value) simplified structure
+  
+  // ^((?<firstKey>(^[a-z]+:))(?<firstValue>([0-9]+|[0-9]+[^0-9][0-9]+)))$ first alternative, a comparison
+  // operator with an open interval
+
+  // ^((?<firstKey2>(^[a-z]+:))(?<firstValue2>([0-9]+|[0-9]+[^0-9][0-9]+))[^0-9]((?<separator>and)[^0-9](?<secondKey>([a-z]+:))(?<secondValue>([0-9]+|[0-9]+[^0-9][0-9]+))))$
+  // second alternative; closed interval comparison operator
 
   // (?<firstKey>...) first capture group
   // ^[a-z]+: any number of undercase letters and colon
   // (?<firstValue>...)
+  // 
 
   let wholeMatch = /^((?<firstKey>(^[a-z]+:))(?<firstValue>([0-9]+|[0-9]+[^0-9][0-9]+)))$|^((?<firstKey2>(^[a-z]+:))(?<firstValue2>([0-9]+|[0-9]+[^0-9][0-9]+))[^0-9]((?<separator>and)[^0-9](?<secondKey>([a-z]+:))(?<secondValue>([0-9]+|[0-9]+[^0-9][0-9]+))))$/s;
 
